@@ -25,7 +25,7 @@ namespace CourseProject
                 app.UseDeveloperExceptionPage();
             }
 
-            var cipher = new VigenereCipher(DocumentService.PArseWordX().ToLower(), "скорпион");
+            var cipher = new VigenereCipher(DocumentService.PArseWordX().ToLower(), "скорпион"); //.Replace("!","").Replace("#", "").Replace(".", "").Replace(",", "")
             var s = cipher.Decrypt();
           
 

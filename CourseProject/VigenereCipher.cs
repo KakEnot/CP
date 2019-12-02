@@ -9,9 +9,7 @@ namespace CourseProject
 {
     public class VigenereCipher
     {
-        const string h = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-        static string defaultAlphabet = h.ToLower();
-       // const string englishAlphabet = "abcdefghijklmnopqrstuvwxyz";
+        static string defaultAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
         public string Text { get; set; }
         public string Pass { get; set; }
        
@@ -42,16 +40,22 @@ namespace CourseProject
 
             for (int i = 0; i < text.Length; i++)
             {
-                var letterIndex = defaultAlphabet.IndexOf(text[i]);
-                var codeIndex = defaultAlphabet.IndexOf(gamma[i]);
-                if (letterIndex < 0)
+                for (int j = 0; j < text.Length; j++)
                 {
-                    retValue += text[i].ToString();  //если буква не найдена, добавляем её в исходном виде
+                    var letterIndex = defaultAlphabet.IndexOf(text[i]);
+                    var codeIndex = defaultAlphabet.IndexOf(gamma[j]);
+                    if (!defaultAlphabet.Contains(text[i]))
+                    {
+                        retValue += text[i];  //если буква не найдена, добавляем её в исходном виде
+                        j--;
+                    }
+                    else
+                    {
+
+                        retValue += defaultAlphabet[(q + letterIndex + ((encrypting ? 1 : -1) * codeIndex)) % q].ToString();
+                    }
                 }
-                else
-                {
-                    retValue += defaultAlphabet[(q + letterIndex + ((encrypting ? 1 : -1) * codeIndex)) % q].ToString();
-                }
+               
             }
             return retValue;
         }

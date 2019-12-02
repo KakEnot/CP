@@ -15,7 +15,8 @@ namespace CourseProject
     {
         public static string PArseWordX()
         {
-            using (var doc=WordprocessingDocument.Open(@"C:\Users\Пушистая булка\Desktop\Учеба\Result_v5.docx", false))
+            //using (var doc = WordprocessingDocument.Open(@"C:\Users\Пушистая булка\Desktop\Учеба\Result_v5.docx", false))
+            using (var doc = WordprocessingDocument.Open(@"C:\Users\Admin\Desktop\Учеба\Result_v5.docx", false))
             {
                 var body = doc.MainDocumentPart.Document.Body.InnerText;
                 return body;
