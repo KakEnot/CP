@@ -25,10 +25,13 @@ namespace CourseProject
                 app.UseDeveloperExceptionPage();
             }
 
-            
+            var cipher = new VigenereCipher(DocumentService.PArseWordX().ToLower(), "скорпион");
+            var s = cipher.Decrypt();
+          
+
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync(DocumentService.PArseWordX());
+                await context.Response.WriteAsync(DocumentService.DefaultToUTF(s));
             });
         }
     }
