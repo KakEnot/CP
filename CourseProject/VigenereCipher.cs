@@ -12,9 +12,7 @@ namespace CourseProject
         static string defaultAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
         public string Text { get; set; }
         public string Pass { get; set; }
-       
-       
-               
+
         public VigenereCipher(string text, string pass)
         {
             Text = text;
@@ -28,34 +26,27 @@ namespace CourseProject
             {
                 p += p;
             }
-
             return p.Substring(0, n);
         }
 
         private string Vigenere(string text, string password, bool encrypting = true)
         {
-            var gamma = GetRepeatKey(password, text.Length);
+            var key = GetRepeatKey(password, text.Length);
             var retValue = "";
-            var q = defaultAlphabet.Length;
-
+            var length = defaultAlphabet.Length;
+            int j = 0; //счетчик для строки с ключом
+            
             for (int i = 0; i < text.Length; i++)
             {
-                for (int j = 0; j < text.Length; j++)
+                if (!defaultAlphabet.Contains(text[i]))
                 {
-                    var letterIndex = defaultAlphabet.IndexOf(text[i]);
-                    var codeIndex = defaultAlphabet.IndexOf(gamma[j]);
-                    if (!defaultAlphabet.Contains(text[i]))
-                    {
-                        retValue += text[i];  //если буква не найдена, добавляем её в исходном виде
-                        j--;
-                    }
-                    else
-                    {
-
-                        retValue += defaultAlphabet[(q + letterIndex + ((encrypting ? 1 : -1) * codeIndex)) % q].ToString();
-                    }
+                    retValue += text[i];  //если буква не найдена, добавляем её в исходном виде
                 }
-               
+                else
+                {
+                    retValue += defaultAlphabet[(length + defaultAlphabet.IndexOf(text[i]) + ((encrypting ? 1 : -1) * defaultAlphabet.IndexOf(key[j]))) % length].ToString();
+                    j++;
+                }
             }
             return retValue;
         }
